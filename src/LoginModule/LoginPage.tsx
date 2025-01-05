@@ -1,22 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import LoginCSS from "./LoginPage.module.css";
-const LandingPage = () => {
+import { LoginController } from './LoginController';
+import { useNavigate } from "react-router-dom";
+const LandingPage:React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const loginController = LoginController;
+  const {isLoggedIn, onSubmitLogin} = loginController();
+  const navigate = useNavigate()
   const [error, setError] = useState("");
   const handleSubmit = (e: any) => {
-    console.log("submitted!!");
     e.preventDefault();
+    onSubmitLogin(username, password);
+    if(isLoggedIn){
+      setTimeout(()=>{
+        navigate("/home")
+      }, 200)
+    }else{
+      setError("Username or password is incorrect!");
+    }
+
   };
   return (
     <div className={LoginCSS.loginBoxParent}>
       <div className={LoginCSS.loginBox}>
         <form onSubmit={handleSubmit} className={LoginCSS.loginForm}>
           <div className={LoginCSS.container}>
-            {" "}
             <b>SignIn </b>
           </div>
           <div className={LoginCSS.container}>
+            <div className={LoginCSS.error_message}><p>{error}</p></div>
             <input
               type="text"
               id="username"
