@@ -6,21 +6,26 @@ const LandingPage:React.FC = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const loginController = LoginController;
-  const {isLoggedIn, onSubmitLogin} = loginController();
+  const {onSubmitLogin, isLoggedIn, isLoginError} = loginController();
+
+
   const navigate = useNavigate()
   const [error, setError] = useState("");
+
   const handleSubmit = (e: any) => {
     e.preventDefault();
     onSubmitLogin(username, password);
-    if(isLoggedIn){
+  };
+
+  useEffect(()=>{
+    if(isLoggedIn  ){
       setTimeout(()=>{
-        navigate("/home")
+        navigate("/app/home")
       }, 200)
-    }else{
+    }else if(isLoginError) {
       setError("Username or password is incorrect!");
     }
-
-  };
+  }, [isLoggedIn, error, navigate, isLoginError])
   return (
     <div className={LoginCSS.loginBoxParent}>
       <div className={LoginCSS.loginBox}>

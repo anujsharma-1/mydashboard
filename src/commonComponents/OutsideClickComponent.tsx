@@ -1,10 +1,19 @@
-import { cloneElement } from "react";
+import { cloneElement, useEffect } from "react";
 
 export const OutsideClickComponent = (props: any) => {
-  const clickHandler = () => {
-    console.log("consoledd!!!");
+  useEffect(() => {
+    document.addEventListener("click", clickHandler);
+    return () => {
+      document.removeEventListener("click", clickHandler);
+    };
+  });
+  const clickHandler = (e: any) => {
+    if (
+      !(props.insideArea.current && props.insideArea.current.contains(e.target))
+    ) {
+      props.setShowDropdown(false);
+    }
   };
-  window.addEventListener("click", clickHandler);
 
   return <>{cloneElement(props.children, {})}</>;
 };

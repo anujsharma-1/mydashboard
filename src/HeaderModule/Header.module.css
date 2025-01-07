@@ -9,6 +9,7 @@
 }
 .headerParent  img{
     max-width:100%;
+    mix-blend-mode: multiply;
 }
 .logoParent{
     max-width: 16%;
@@ -18,11 +19,12 @@
     background-color: inherit;
     border: 0;
     gap:8px;
+    color: #123524;
 }
 
 .dropdown{
     position: absolute;
-    background-color: "#fff";
+    background-color: white;
     border: 1px solid #ccc;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     z-index: 1000;
@@ -45,5 +47,9 @@ button{
 }
 .dropdown div:hover {
     /* height : 40%; */
-    background-color: #f0f0f0;
+    background-color: #EFE3C2;
+}
+.headerParent{
+    border-bottom: 1px solid grey;
+    background-color: #85A947;
 }
