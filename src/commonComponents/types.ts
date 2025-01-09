@@ -2,6 +2,7 @@ export interface FormField {
   label: string;
   fieldName: string;
   fieldType: string;
+  options?:string[];
 }
 
 export interface FormDataFields {

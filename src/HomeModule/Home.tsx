@@ -35,7 +35,7 @@ export const HomeDashboard = () => {
             <tbody>
               {allLoginCreds.map((item: any, index: number, array: []) => {
                 return (
-                  <tr>
+                  <tr key = {item.id}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
                     <td>{item.gender}</td>

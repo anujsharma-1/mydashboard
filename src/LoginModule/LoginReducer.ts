@@ -186,6 +186,20 @@ export const loginReducer = (state = initialState, action: any) => {
         isLoginError: false,
       };
     }
+    case LoginActionConstants.Update_User_Details: {
+      const editedUserIndex = state.allLoginCreds.findIndex((item: any, index:number)=>{
+        if(item.id === action.data.id)
+          return index
+      })
+      let originalCreds:any=state.allLoginCreds;
+      if(editedUserIndex >= 0 && editedUserIndex !== null && editedUserIndex !== undefined){
+        originalCreds[editedUserIndex] = action.data;
+      }
+      return {
+        ...state,
+        allLoginCreds : originalCreds,
+      }
+    }
     default:
       return { ...state };
   }

@@ -8,3 +8,7 @@ export const userLogoutAction = (data: any) => ({
   type: LoginActionConstants.User_Logout,
   data,
 });
+export const editUserDetails = (data:any)=> ({
+  type: LoginActionConstants.Update_User_Details,
+  data
+})
