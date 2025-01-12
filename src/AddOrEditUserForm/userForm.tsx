@@ -4,7 +4,7 @@ import UserFormCSS from "./userForm.module.css";
 import { InputField } from "./inputField";
 import { useEffect, useState } from "react";
 import { FormDataFields, FormField } from "../commonComponents/types";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editUserDetails } from "../LoginModule/LoginAction";
 export const UserForm = () => {
@@ -27,15 +27,19 @@ export const UserForm = () => {
     Citizen_OF: "",
     id: "",
   });
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const onChangeHandler = (e: any) => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
   const handleSubmit = (data: any) => {
     dispatch(editUserDetails(formData));
+    navigate("/app/home")
   };
-
+  const handleCancel = () => {
+    navigate("/app/home");
+  }
   useEffect(()=>{
     let itemArray:any=[];
     categoryArray.map((categoryItem:string)=>{
@@ -58,7 +62,6 @@ export const UserForm = () => {
   return (
     <>
       <div>
-        <div>Dashboard Form</div>
         <div className={UserFormCSS.formParent}>
           <form action="">
             {
@@ -95,8 +98,11 @@ export const UserForm = () => {
             }
            
           </form>
-          <div className={UserFormCSS.submitParent}>
-            <button type="button" onClick={handleSubmit}>
+          <div className={UserFormCSS.buttonParent}>
+            <button type="button" onClick={handleCancel}>
+                Cancel
+            </button>
+            <button type="button" onClick={handleSubmit} >
                 Submit
             </button>
           </div>

@@ -1,16 +1,21 @@
 .headerParent{
     width: 100%;
     height: 64px;
+    padding: 30px 8% 30px 8%;
+    display: flex;
+    background-color: var(--dark-level4);
+}
+div > h2, div > b{
+    color: var(--white-background);
+}
+.rightHeader{
+    width: 100%;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 30px 10% 30px 10%;
 }
-.headerParent  img{
-    max-width:100%;
-    mix-blend-mode: multiply;
-}
+
 .logoParent{
     max-width: 16%;
 }
@@ -19,7 +24,7 @@
     background-color: inherit;
     border: 0;
     gap:8px;
-    color: #123524;
+    color: var(--white-background);
 }
 
 .dropdown{
@@ -33,6 +38,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    right: 1%;
 }
 
 button{
@@ -48,8 +54,4 @@ button{
 .dropdown div:hover {
     /* height : 40%; */
     background-color: #EFE3C2;
-}
-.headerParent{
-    border-bottom: 1px solid grey;
-    background-color: #85A947;
 }

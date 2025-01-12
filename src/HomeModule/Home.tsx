@@ -35,7 +35,7 @@ export const HomeDashboard = () => {
             <tbody>
               {allLoginCreds.map((item: any, index: number, array: []) => {
                 return (
-                  <tr key = {item.id}>
+                  <tr key = {item.id} className={index % 2===0 ? homeCSS.oddRows : homeCSS.evenRows}>
                     <td>{index + 1}</td>
                     <td>{item.name}</td>
                     <td>{item.gender}</td>

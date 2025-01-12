@@ -1,0 +1,77 @@
+.collapseSidebarParent, .expandSidebarParent{
+    height: 93vh;
+    transition: width 0.3s ease;
+}
+.expandSidebarParent{
+    width: 16%;
+}
+.collapseSidebarParent{
+    width: 4%;
+}
+.headerParent{
+    background-color: var(--dark-level4);
+    height: 64px;
+    display: flex;
+    justify-content: space-around;
+    padding-left: 4%;
+}
+.headerParent > div{
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+.headerParent h3{
+    margin: 0 10px 0 10px;
+    color: var(--white-background);
+}
+.hamIcon{
+    width:8%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding: 0 28px 0 28px;
+    color: var(--white-background)
+}
+.icon, .bodyParent svg{
+    color: var(--white-background);
+    fill: var(--white-background);
+}
+.bodyParent{
+    background-color: var(--dark-level4);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 26px;
+    gap: 3%;
+}
+.itemParentExpand, .itemParentCollapse{
+    height: 6%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 6%;
+    background-color: var(--dark-level4);
+    color: var(--white-background);
+    border-radius: 24px;
+}
+.itemParentExpand:hover, .itemParentCollapse:hover{
+    background-color: var(--dark-level2);
+}
+.itemParentExpand.active, .itemParentCollapse.active{
+    background-color: var(--dark-level3);
+    border: 2px solid var(--dark-level1);
+    fill: var(--light-shade);;
+    color: var(--light-shade);
+}
+.itemParentExpand{
+    padding-left: 24px;
+    width: 74%;
+}
+.itemParentCollapse{
+    width: 51px;
+    border-radius: 14px;
+    display: flex;
+    justify-content: center;
+}

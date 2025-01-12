@@ -191,9 +191,13 @@ export const loginReducer = (state = initialState, action: any) => {
         if(item.id === action.data.id)
           return index
       })
-      let originalCreds:any=state.allLoginCreds;
+      let originalCreds:any=JSON.parse(JSON.stringify(state.allLoginCreds));
       if(editedUserIndex >= 0 && editedUserIndex !== null && editedUserIndex !== undefined){
         originalCreds[editedUserIndex] = action.data;
+      } else if(editedUserIndex < 0){
+        const genId = Math.floor(Math.random()*1000000);
+        action.data.id = `${genId}`;
+        originalCreds.push(action.data)
       }
       return {
         ...state,

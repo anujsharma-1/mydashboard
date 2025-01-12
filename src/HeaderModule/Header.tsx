@@ -1,12 +1,13 @@
 import HeaderCSS from "./Header.module.css";
 import logo from "../assests/logo.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser, faCaretDown } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faCaretDown, faBars } from "@fortawesome/free-solid-svg-icons";
 import { useRef, useState } from "react";
 import { OutsideClickComponent } from "../commonComponents/OutsideClickComponent";
 import { DropdownList } from "../commonComponents/dropdownList";
 import { LoginController } from "../LoginModule/LoginController";
 import { useNavigate } from "react-router-dom";
+import { HomeDashboard } from "../HomeModule/Home";
 
 export const Header = () => {
   const [showDropdown, setShowDropdown] = useState(false);
@@ -22,34 +23,36 @@ export const Header = () => {
   return (
     <>
       <div className={HeaderCSS.headerParent}>
-        <div>
-          <div className={HeaderCSS.logoParent}>
-            <img src={logo} alt="logo" />
+        <div className={HeaderCSS.rightHeader}>
+          <div>
+            <div className={HeaderCSS.logoParent}>
+              <h2>Dashboard</h2>
+            </div>
           </div>
-        </div>
-        <div
-          className={HeaderCSS.accountTab}
-          onClick={() => setShowDropdown(!showDropdown)}
-        >
-          <button ref={myAccount}>
-            <FontAwesomeIcon icon={faUser} />
-            <div>{username}</div>
-            <FontAwesomeIcon icon={faCaretDown} />
-          </button>
-
-          <OutsideClickComponent
-            setShowDropdown={setShowDropdown}
-            insideArea={myAccount}
+          <div
+            className={HeaderCSS.accountTab}
+            onClick={() => setShowDropdown(!showDropdown)}
           >
-            <DropdownList
-              list={[
-                { key: "My Profile", handler: onLogoutClick },
-                { key: "Logout", handler: onLogoutClick },
-              ]}
-              showDropdown={showDropdown}
-              CSSFile={HeaderCSS}
-            />
-          </OutsideClickComponent>
+            <button ref={myAccount}>
+              <FontAwesomeIcon icon={faUser} />
+              <div><b>{username}</b></div>
+              <FontAwesomeIcon icon={faCaretDown} />
+            </button>
+
+            <OutsideClickComponent
+              setShowDropdown={setShowDropdown}
+              insideArea={myAccount}
+            >
+              <DropdownList
+                list={[
+                  { key: "My Profile", handler: onLogoutClick },
+                  { key: "Logout", handler: onLogoutClick },
+                ]}
+                showDropdown={showDropdown}
+                CSSFile={HeaderCSS}
+              />
+            </OutsideClickComponent>
+          </div>
         </div>
       </div>
     </>

@@ -10,3 +10,16 @@ html, head, body{
 #root{
   height: 100%;
 }
+
+
+/* global.css */
+:root {
+  --light-shade: #EFE3C2;
+  
+  --dark-level4: #123524;
+  --dark-level3: #1A4B36 ;
+  --dark-level2: #3E7B27;
+  --dark-level1: #85A947;
+  --white-background:white;
+  --error-message:red;
+}

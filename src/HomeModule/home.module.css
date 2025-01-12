@@ -3,15 +3,43 @@
     border-collapse: collapse;
     margin: 20px 0;
     text-align: left;
-    border: 1;
+    border-color: var(--dark-level1);
 }
 .tableParent{
     width: 100%;
     display: flex;
     justify-content: center;
-    gap:120px
+    gap:120px;
 }
 
+@media (max-width = 1440px) {
+    .tableParent{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        gap:120px;
+        overflow-x: scroll;
+    }
+}
+
+.table > thead{
+    background-color: var(--dark-level3);
+    color: var(--white-background);
+    border-color: var(--dark-level1);
+}
+tbody > tr, tbody > td{
+    border-color: var(--dark-level1);
+}
+.oddRows {
+    background-color: var(--white-background);
+}
+.evenRows{
+    background-color: var(--light-shade);
+}
+.oddRows:hover, .evenRows:hover{
+    background-color: var(--dark-level2);
+    color: var(--white-background);
+}
 .table > thead td {
     padding: 20px 20px 20px 20px;
     text-align: left;
