@@ -5,6 +5,7 @@ interface loginState {
   isLoginError: boolean;
   username: string;
   password: string;
+  sidebarActiveTab:number;
 }
 const initialState: loginState = {
   allLoginCreds: [
@@ -139,6 +140,7 @@ const initialState: loginState = {
   password: "",
   isLoggedIn: false,
   isLoginError: false,
+  sidebarActiveTab:0,
 };
 
 export const loginReducer = (state = initialState, action: any) => {
@@ -162,13 +164,6 @@ export const loginReducer = (state = initialState, action: any) => {
           isLoginError = true;
         }
       }
-      console.log({
-        ...state,
-        isLoggedIn: isLoggedIn,
-        username: username,
-        password: password,
-        isLoginError: isLoginError,
-      });
       return {
         ...state,
         isLoggedIn: isLoggedIn,
@@ -187,10 +182,11 @@ export const loginReducer = (state = initialState, action: any) => {
       };
     }
     case LoginActionConstants.Update_User_Details: {
-      const editedUserIndex = state.allLoginCreds.findIndex((item: any, index:number)=>{
-        if(item.id === action.data.id)
-          return index
-      })
+      let editedUserIndex = -1;
+      for(let i=0; i<state.allLoginCreds.length; i++){
+        if(state.allLoginCreds[i].id === action.data.id)
+          editedUserIndex = i;
+      }
       let originalCreds:any=JSON.parse(JSON.stringify(state.allLoginCreds));
       if(editedUserIndex >= 0 && editedUserIndex !== null && editedUserIndex !== undefined){
         originalCreds[editedUserIndex] = action.data;
@@ -202,6 +198,27 @@ export const loginReducer = (state = initialState, action: any) => {
       return {
         ...state,
         allLoginCreds : originalCreds,
+      }
+    }
+    case LoginActionConstants.Submit_User_Input_Form: {
+      return {
+        ...state,
+        sidebarActiveTab: action.data,
+      }
+    }
+    case LoginActionConstants.Delete_User_Entry: {
+      let deleteUserIndex = -1;
+      for(let i=0; i<state.allLoginCreds.length; i++){
+        if(state.allLoginCreds[i].id === action.data)
+          deleteUserIndex = i;
+      }
+      let originalCreds:any=JSON.parse(JSON.stringify(state.allLoginCreds));
+      if(deleteUserIndex >= 0 && deleteUserIndex !== null && deleteUserIndex !== undefined){
+        originalCreds.splice(deleteUserIndex, 1);
+      }
+      return {
+        ...state,
+        allLoginCreds: originalCreds,
       }
     }
     default:

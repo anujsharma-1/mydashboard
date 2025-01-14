@@ -35,19 +35,32 @@
 
 }
 .categoryInputs input, .categoryInputs select{
-    border-color: var(--dark-level1);
+    border-color: var(--dark-level1) !important;
     border-radius: 4px;
 }
 .categoryInputs input:active, .categoryInputs select:active{
     border-color: var(--dark-level2);
     border-radius: 4px;
 }
-button{
+.buttonParent >button{
     padding: 8px 12px 8px 12px;
-    background-color: green;
-    color: white;
     border: 0;
     border-radius: 5px;
+}
+.submitBtn{
+    background-color: var(--dark-level2);
+    color: var(--white-background);
+}
+.submitBtn:hover{
+    background-color: var(--dark-level3);
+}
+.cancelBtn{
+    background-color: var(--light-shade);
+    color: var(--dark-level3);
+}
+.cancelBtn:hover{
+    background-color: var(--dark-level1);
+    color: var(--white-background);
 }
 .buttonParent{
     width: 97%;
@@ -55,4 +68,9 @@ button{
     flex-direction: row;
     justify-content: flex-end;
     gap:20px;
+}
+.parentContainer > h2{
+    width: 80%;
+    margin: 0 auto 10px auto; 
+    color: var(--dark-level3);
 }

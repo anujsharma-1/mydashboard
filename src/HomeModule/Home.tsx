@@ -1,15 +1,21 @@
-import { Header } from "../HeaderModule/Header";
 import homeCSS from "./home.module.css";
 import { LoginController } from "../LoginModule/LoginController";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { deleteUserEntry } from "../LoginModule/LoginAction";
 export const HomeDashboard = () => {
   const loginController = LoginController;
-  const { allLoginCreds } = loginController();
+  const { allLoginCreds, updateSidebarActiveTab } = loginController();
   const navigate = useNavigate()
+  const dispatch = useDispatch();
   const onEditClick = (id:string) =>{
+    updateSidebarActiveTab(1);
     navigate("/app/form", {state:{id:id}});
+  }
+  const onDeleteClick = (id:string) => {
+    dispatch(deleteUserEntry(id));
   }
   return (
     <>
@@ -46,10 +52,10 @@ export const HomeDashboard = () => {
                     <td>{item.city}</td>
                     <td>{item.state}</td>
                     <td>{item.Citizen_OF}</td>
-                    <td onClick={()=>onEditClick(item.id)}>
+                    <td onClick={()=>onEditClick(item.id)} className={homeCSS.updateUser}>
                       <FontAwesomeIcon icon={faPenToSquare} />
-                      </td>
-                      <td>
+                    </td>
+                    <td onClick={()=>onDeleteClick(item.id)} className={homeCSS.updateUser}>
                       <FontAwesomeIcon icon={faTrashCan} />
                     </td>
                   </tr>

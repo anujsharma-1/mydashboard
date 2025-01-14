@@ -2,7 +2,7 @@ export const InputField = (props: any) => {
   return (
     <>
         <label>
-          {props.label}:
+          {props.label}* :
         </label>
 
         {props.type !== "option" && (

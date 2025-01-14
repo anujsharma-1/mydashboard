@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { userLoginCreds, userLogoutAction } from "./LoginAction";
+import { userFormSubmit, userLoginCreds, userLogoutAction } from "./LoginAction";
 export const LoginController = () => {
 
   const dispatch = useDispatch();
@@ -7,6 +7,7 @@ export const LoginController = () => {
   const isLoginError = useSelector((state:any)=>state.login.isLoginError);
   const username = useSelector((state:any)=>state.login.username);
   const allLoginCreds = useSelector((state: any)=>state.login.allLoginCreds);
+  const currentActiveSidebarTab = useSelector((state:any)=>state.login.sidebarActiveTab);
   const updateLoggedIn = (data: boolean)=> {
     dispatch(userLogoutAction(data))
   }
@@ -14,6 +15,9 @@ export const LoginController = () => {
     const data = { username, password };
     dispatch(userLoginCreds(data));
   };
+  const updateSidebarActiveTab = (data:number) => {
+    dispatch(userFormSubmit(data))
+  }
 
   return {
     onSubmitLogin,
@@ -22,6 +26,8 @@ export const LoginController = () => {
     username,
     isLoginError,
     allLoginCreds,
+    updateSidebarActiveTab,
+    currentActiveSidebarTab,
   };
 
 };

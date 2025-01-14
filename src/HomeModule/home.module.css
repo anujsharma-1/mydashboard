@@ -50,3 +50,6 @@ tbody > tr, tbody > td{
     text-align: center;
     padding: 15px 10px 15px 10px;
 }
+.updateUser{
+    cursor: pointer;
+}

@@ -3,11 +3,12 @@ import sidebarCSS from "./sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars, faPersonShelter } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { LoginController } from "../LoginModule/LoginController";
 export const SidebarComponent = () => {
   const navigate = useNavigate();
+  const loginController = LoginController
+  const { updateSidebarActiveTab, currentActiveSidebarTab,} = loginController();
   const [showSidebar, setShowSidebar] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
-
   return (
     <>
       <div
@@ -41,10 +42,10 @@ export const SidebarComponent = () => {
               showSidebar
                 ? sidebarCSS.itemParentExpand
                 : sidebarCSS.itemParentCollapse
-            } ${activeIndex === 0 ? sidebarCSS.active : ""}`}
+            } ${Number(currentActiveSidebarTab) === 0 ? sidebarCSS.active : ""}`}
             onClick={() => {
-              setActiveIndex(0);
-              navigate("/app/home");
+              updateSidebarActiveTab(0);
+              navigate("/app/home")
             }}
           >
             <svg
@@ -63,11 +64,10 @@ export const SidebarComponent = () => {
               showSidebar
                 ? sidebarCSS.itemParentExpand
                 : sidebarCSS.itemParentCollapse
-            } ${activeIndex === 1 ? sidebarCSS.active : ""}`}
+            } ${Number(currentActiveSidebarTab) === 1 ? sidebarCSS.active : ""}`}
             onClick={() => {
-              setActiveIndex(1);
-              navigate("/app/form");
-            }}
+              updateSidebarActiveTab(1);
+              navigate("/app/form", {state:{id:null}});            }}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -78,15 +78,15 @@ export const SidebarComponent = () => {
             >
               <path d="M720-400v-120H600v-80h120v-120h80v120h120v80H800v120h-80Zm-360-80q-66 0-113-47t-47-113q0-66 47-113t113-47q66 0 113 47t47 113q0 66-47 113t-113 47ZM40-160v-112q0-34 17.5-62.5T104-378q62-31 126-46.5T360-440q66 0 130 15.5T616-378q29 15 46.5 43.5T680-272v112H40Zm80-80h480v-32q0-11-5.5-20T580-306q-54-27-109-40.5T360-360q-56 0-111 13.5T140-306q-9 5-14.5 14t-5.5 20v32Zm240-320q33 0 56.5-23.5T440-640q0-33-23.5-56.5T360-720q-33 0-56.5 23.5T280-640q0 33 23.5 56.5T360-560Zm0-80Zm0 400Z" />
             </svg>
-            {showSidebar && <span>Add New User</span>}
+            {showSidebar && <span>Add / Edit User</span>}
           </div>
           <div
             className={`${
               showSidebar
                 ? sidebarCSS.itemParentExpand
                 : sidebarCSS.itemParentCollapse
-            } ${activeIndex === 2 ? sidebarCSS.active : ""}`}
-            onClick={() => setActiveIndex(2)}
+            } ${Number(currentActiveSidebarTab) === 2 ? sidebarCSS.active : ""}`}
+            onClick={() => updateSidebarActiveTab(2)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -104,8 +104,8 @@ export const SidebarComponent = () => {
               showSidebar
                 ? sidebarCSS.itemParentExpand
                 : sidebarCSS.itemParentCollapse
-            } ${activeIndex === 3 ? sidebarCSS.active : ""}`}
-            onClick={() => setActiveIndex(3)}
+            } ${Number(currentActiveSidebarTab) === 3 ? sidebarCSS.active : ""}`}
+            onClick={() => updateSidebarActiveTab(3)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -123,8 +123,8 @@ export const SidebarComponent = () => {
               showSidebar
                 ? sidebarCSS.itemParentExpand
                 : sidebarCSS.itemParentCollapse
-            } ${activeIndex === 4 ? sidebarCSS.active : ""}`}
-            onClick={() => setActiveIndex(4)}
+            } ${Number(currentActiveSidebarTab) === 4 ? sidebarCSS.active : ""}`}
+            onClick={() => updateSidebarActiveTab(4)}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"

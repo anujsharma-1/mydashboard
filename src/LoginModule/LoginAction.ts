@@ -12,3 +12,11 @@ export const editUserDetails = (data:any)=> ({
   type: LoginActionConstants.Update_User_Details,
   data
 })
+export const userFormSubmit = (data:any)=> ({
+  type: LoginActionConstants.Submit_User_Input_Form,
+  data
+})
+export const deleteUserEntry = (data:string) => ({
+  type: LoginActionConstants.Delete_User_Entry,
+  data
+})
