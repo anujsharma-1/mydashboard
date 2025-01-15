@@ -46,6 +46,9 @@
     padding-top: 26px;
     gap: 3%;
 }
+.bodyParent > div{
+    cursor: pointer;
+}
 .itemParentExpand, .itemParentCollapse{
     height: 6%;
     display: flex;

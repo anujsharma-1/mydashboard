@@ -3,7 +3,7 @@ import { categoryArray, formField } from "./formFields";
 import UserFormCSS from "./userForm.module.css";
 import { InputField } from "./inputField";
 import { useEffect, useState } from "react";
-import { FormDataFields } from "../commonComponents/types";
+import { FormDataFields, FormField } from "../commonComponents/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editUserDetails } from "../LoginModule/LoginAction";
@@ -13,6 +13,20 @@ export const UserForm = () => {
   const { id: editId } = location.state || {};
   const { allLoginCreds, updateSidebarActiveTab } = loginController();
   const [categorizedFormField, setCategorizedFormField] = useState([]);
+  const [error, setError] = useState<FormDataFields>({
+    username: "",
+    name: "",
+    password: "",
+    gender: "",
+    role: " ",
+    exp: " ",
+    email: "",
+    phone: "",
+    city: "",
+    state: "",
+    Citizen_OF: "",
+    id: "",
+  });
   const [formData, setFormData] = useState({
     username: "",
     name: "",
@@ -33,7 +47,75 @@ export const UserForm = () => {
     const { name, value } = e.target;
     setFormData((prevState) => ({ ...prevState, [name]: value }));
   };
+
+  const formValidator = (fieldName: string, value: string, validations: any) => {
+    if (validations?.required && value.trim().length < 1) {
+      return `This field is mandatory`;
+    } else if (
+      validations?.maxLength &&
+      !validations?.minLength &&
+      value.length > validations?.maxLength
+    ) {
+      return `Maximum ${validations?.maxLength} characters are required`;
+    } else if (
+      validations?.minLength &&
+      !validations?.maxLength &&
+      value.length < validations?.minLength
+    ) {
+      return `Minimum ${validations?.minLength} characters required`;
+    } else if (
+      validations?.maxLength &&
+      validations?.minLength &&
+      validations?.maxLength !== validations?.minLength &&
+      value.length > validations?.maxLength &&
+      value.length < validations?.minLength
+    ) {
+      return `Minimum ${validations?.minLength} and maximum ${validations?.maxLength} character are required`;
+    } else if (
+      validations?.maxLength === validations?.minLength &&
+      validations?.maxLength &&
+      validations?.minLength && value.length !== validations.minLength
+    ) {
+      return `Exactly ${validations?.maxLength} characters are required`
+    } else if (validations?.duplicateError) {
+      for(let i=0;i<allLoginCreds.length;i++){
+        if(allLoginCreds[i][fieldName] === value && editId !== allLoginCreds[i].id){
+          return `This field must be unique`;
+        }
+      }
+    }
+    return "";
+  };
+  const validateFields = () => {
+    let newError:FormDataFields={
+      username: "",
+      name: "",
+      password: "",
+      gender: "",
+      role: " ",
+      exp: " ",
+      email: "",
+      phone: "",
+      city: "",
+      state: "",
+      Citizen_OF: "",
+      id: "",
+    };
+    formField.forEach((item)=>{
+      const error = formValidator(item.fieldName, formData[item.fieldName as keyof FormDataFields], item.validations)
+      if(error)newError[item.fieldName as keyof FormDataFields] = error;
+      else if(item.fieldName in newError) delete newError[item.fieldName as keyof FormDataFields];
+    })
+    setError(newError);
+    if(Object.keys(newError).length > 0)
+      return true;
+    else  
+      return false
+  }
   const handleSubmit = (data: any) => {
+    if(validateFields()){
+      return true;
+    }
     dispatch(editUserDetails(formData));
     updateSidebarActiveTab(0);
     navigate("/app/home");
@@ -77,8 +159,6 @@ export const UserForm = () => {
       });
     }
   }, [editId]);
-  console.log(categorizedFormField);
-  console.log(editId);
   return (
     <>
       <div className={UserFormCSS.parentContainer}>
@@ -91,39 +171,39 @@ export const UserForm = () => {
           <form action="">
             {categorizedFormField.map((keyItem: any, index: number) => {
               return (
-                <>
-                  <div key={index} className={UserFormCSS.categoryParent}>
-                    <div className={UserFormCSS.categoryHeading}>
-                      {keyItem.key} *
-                    </div>
-                    <div className={UserFormCSS.categoryInputsParent}>
-                      {keyItem.value.map((valueItem: any) => {
-                        return (
-                          <span
-                            key={valueItem.id}
-                            className={UserFormCSS.categoryInputs}
-                          >
-                            <InputField
-                              label={valueItem.label}
-                              id={valueItem.fieldName}
-                              name={valueItem.fieldName}
-                              type={valueItem.fieldType}
-                              value={
-                                formData[
-                                  valueItem.fieldName as keyof FormDataFields
-                                ]
-                              }
-                              options={valueItem?.options}
-                              onChange={(e: any) => {
-                                onChangeHandler(e);
-                              }}
-                            />
-                          </span>
-                        );
-                      })}
-                    </div>
+                <div key={index} className={UserFormCSS.categoryParent}>
+                  <div className={UserFormCSS.categoryHeading}>
+                    {keyItem.key}
                   </div>
-                </>
+                  <div className={UserFormCSS.categoryInputsParent}>
+                    {keyItem.value.map((valueItem: FormField, index:number) => {
+                      return (
+                        <span
+                          key={index}
+                          className={UserFormCSS.categoryInputs}
+                        >
+                          <InputField
+                            label={valueItem.label}
+                            id={valueItem.fieldName}
+                            name={valueItem.fieldName}
+                            type={valueItem.fieldType}
+                            required={valueItem?.validations?.required}
+                            value={
+                              formData[
+                                valueItem.fieldName as keyof FormDataFields
+                              ]
+                            }
+                            options={valueItem?.options}
+                            onChange={(e: any) => {
+                              onChangeHandler(e);
+                            }}
+                            error={error[valueItem.fieldName as keyof FormDataFields]}
+                          />
+                        </span>
+                      );
+                    })}
+                  </div>
+                </div>
               );
             })}
           </form>

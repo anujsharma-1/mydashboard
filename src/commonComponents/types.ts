@@ -3,8 +3,10 @@ export interface FormField {
   fieldName: string;
   fieldType: string;
   options?:string[];
+  category: string;
+  validations:any;
+  id?:string;
 }
-
 export interface FormDataFields {
   username: string;
   name: string;

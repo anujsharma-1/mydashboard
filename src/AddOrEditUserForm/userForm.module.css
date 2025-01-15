@@ -46,6 +46,7 @@
     padding: 8px 12px 8px 12px;
     border: 0;
     border-radius: 5px;
+    cursor: pointer;
 }
 .submitBtn{
     background-color: var(--dark-level2);
@@ -73,4 +74,8 @@
     width: 80%;
     margin: 0 auto 10px auto; 
     color: var(--dark-level3);
+}
+.categoryInputs > p{
+    color: #cc0000;
+    font-size: 15px;
 }

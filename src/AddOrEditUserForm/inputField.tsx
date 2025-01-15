@@ -1,8 +1,18 @@
+interface IInputField {
+  value:string;
+  label:string;
+  type:string;
+  fieldName:string;
+  id:string,
+  name:string;
+  onChange:(val:string)=>void;
+  options:string[];
+}
 export const InputField = (props: any) => {
   return (
     <>
         <label>
-          {props.label}* :
+          {props.label}{props.required && (<>*</>)} :
         </label>
 
         {props.type !== "option" && (
@@ -33,6 +43,7 @@ export const InputField = (props: any) => {
             }
           </select>
         )}
+        <p>{props.error}</p>
     </>
   );
 };
