@@ -78,3 +78,6 @@
     display: flex;
     justify-content: center;
 }
+.tooltip{
+    margin-left:6.5px
+}

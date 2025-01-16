@@ -7,6 +7,7 @@ import { FormDataFields, FormField } from "../commonComponents/types";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { editUserDetails } from "../LoginModule/LoginAction";
+import { successToast } from "../commonComponents/toastr/toastrAction";
 export const UserForm = () => {
   const loginController = LoginController;
   const location = useLocation();
@@ -117,6 +118,9 @@ export const UserForm = () => {
       return true;
     }
     dispatch(editUserDetails(formData));
+    dispatch(successToast({
+      message:"Data Submitted Successfully"
+    }))
     updateSidebarActiveTab(0);
     navigate("/app/home");
   };

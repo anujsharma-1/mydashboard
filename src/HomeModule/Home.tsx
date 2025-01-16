@@ -5,6 +5,7 @@ import { faPenToSquare, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { deleteUserEntry } from "../LoginModule/LoginAction";
+import { successToast } from "../commonComponents/toastr/toastrAction";
 export const HomeDashboard = () => {
   const loginController = LoginController;
   const { allLoginCreds, updateSidebarActiveTab } = loginController();
@@ -16,6 +17,9 @@ export const HomeDashboard = () => {
   }
   const onDeleteClick = (id:string) => {
     dispatch(deleteUserEntry(id));
+    dispatch(successToast({
+      message:"Data deleted Successfully"
+    }))
   }
   return (
     <>

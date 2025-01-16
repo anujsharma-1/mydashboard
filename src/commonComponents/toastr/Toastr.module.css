@@ -1,0 +1,40 @@
+.container{
+    width: 100%;
+    position:fixed;
+    left:30%;
+    bottom: 6px;
+}
+.toastParentFail{
+    background-color: red;
+}
+.toastParentSuccess{
+    background-color: var(--dark-level2);
+}
+.toastParentSuccess, .toastParentFail{
+    width: 40%;
+    height: 44px;
+    color: white;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.toast{
+    height: 100%;
+    width: 94%;
+    font-size: 18px;
+    background-color: inherit;
+}
+
+.crossIcon{
+    height: 100%;
+    width: 6%;
+    cursor: pointer;
+}
+
+.toast, .crossIcon{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}

@@ -1,5 +1,4 @@
 export const DropdownList = (props: any) => {
-  console.log("aaya, , ", props.showDropdown);
   return (
     <>
       {props.showDropdown && (
